@@ -27,9 +27,10 @@ public class Main extends javax.swing.JFrame {
       jLabel2 = new javax.swing.JLabel();
       txtN1 = new javax.swing.JTextField();
       txtN2 = new javax.swing.JTextField();
-      jButton1 = new javax.swing.JButton();
+      btnResultado = new javax.swing.JButton();
       cmbOpciones = new javax.swing.JComboBox<>();
       jLabel3 = new javax.swing.JLabel();
+      btnSalir = new javax.swing.JButton();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,17 +40,24 @@ public class Main extends javax.swing.JFrame {
       jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
       jLabel2.setText("Segundo número:");
 
-      jButton1.setText("Resultado");
-      jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+      btnResultado.setText("Resultado");
+      btnResultado.addMouseListener(new java.awt.event.MouseAdapter() {
          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jButton1MouseClicked(evt);
+            btnResultadoMouseClicked(evt);
          }
       });
 
-      cmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suma", "Resta" }));
+      cmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suma", "Resta", "Multiplicación", "División" }));
 
       jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
       jLabel3.setText("Operación:");
+
+      btnSalir.setText("Salir");
+      btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+         public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnSalirMouseClicked(evt);
+         }
+      });
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
@@ -58,7 +66,7 @@ public class Main extends javax.swing.JFrame {
          .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addGroup(layout.createSequentialGroup()
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                      .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -69,7 +77,8 @@ public class Main extends javax.swing.JFrame {
                      .addComponent(cmbOpciones, 0, 176, Short.MAX_VALUE)
                      .addComponent(txtN1)
                      .addComponent(txtN2))
-                  .addGap(0, 76, Short.MAX_VALUE)))
+                  .addGap(0, 0, Short.MAX_VALUE))
+               .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
       layout.setVerticalGroup(
@@ -88,38 +97,53 @@ public class Main extends javax.swing.JFrame {
                .addComponent(cmbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(jLabel3))
             .addGap(18, 18, 18)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
       );
 
       pack();
       setLocationRelativeTo(null);
    }// </editor-fold>//GEN-END:initComponents
 
-   private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+   private void btnResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResultadoMouseClicked
       Validacion validacion = new Validacion();
       
       double n1 = Integer.parseInt(txtN1.getText());
       double n2 = Integer.parseInt(txtN2.getText());
-            
-      if(cmbOpciones.getSelectedIndex() == 0)
+      double resultado;
+      
+      
+      switch(cmbOpciones.getSelectedIndex())
       {
-         double resultado = validacion.suma(n1, n2);
-         
-         JOptionPane.showMessageDialog(null, resultado);
-      }
-      else
-      {
-         if(cmbOpciones.getSelectedIndex() == 1)
-         {
-            double resultado = validacion.resta(n1, n2);
+         case 0:
+            resultado = validacion.suma(n1, n2);
          
             JOptionPane.showMessageDialog(null, resultado);
-         }//Fin if resta.
+            break;
+         case 1:
+            resultado = validacion.resta(n1, n2);
          
-      }//Fin if suma.
-      
-   }//GEN-LAST:event_jButton1MouseClicked
+            JOptionPane.showMessageDialog(null, resultado);
+            break;
+         case 2:
+            resultado = validacion.multiplicacion(n1, n2);
+         
+            JOptionPane.showMessageDialog(null, resultado);
+            break;
+         case 3:
+            resultado = validacion.division(n1, n2);
+         
+            JOptionPane.showMessageDialog(null, resultado);
+            break;
+            
+      }//Fin switch     
+   }//GEN-LAST:event_btnResultadoMouseClicked
+
+   private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+      System.exit(0);
+   }//GEN-LAST:event_btnSalirMouseClicked
 
    /**
     * @param args the command line arguments
@@ -157,8 +181,9 @@ public class Main extends javax.swing.JFrame {
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JButton btnResultado;
+   private javax.swing.JButton btnSalir;
    private javax.swing.JComboBox<String> cmbOpciones;
-   private javax.swing.JButton jButton1;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
